@@ -26,7 +26,7 @@ namespace DAL
                 InitialCatalog = BaseDatos
             };
             if (SqlAutentication)
-    {
+            {
                 ConstructorCadenaConexion.UserID = Usuario;
                 ConstructorCadenaConexion.Password = Password;
             }

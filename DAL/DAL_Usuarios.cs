@@ -5,60 +5,66 @@ using System.Linq;
 
 namespace DAL
 {
-    public static class DAL_Formularios
+    public static class DAL_Usuarios
     {
-        public static Formularios Insert(Formularios Entidad)
+        public static Usuarios Insert(Usuarios Entidad)
         {
             using (BDMPOO bd = new BDMPOO())
             {
                 Entidad.Activo = true;
                 Entidad.FechaRegistro = DateTime.Now;
-                bd.Formularios.Add(Entidad);
+                bd.Usuarios.Add(Entidad);
                 bd.SaveChanges();
                 return Entidad;
             }
         }
-        public static bool Update(Formularios Entidad)
+        public static bool Update(Usuarios Entidad)
         {
             using (BDMPOO bd = new BDMPOO())
             {
-                var Registro = bd.Formularios.Find(Entidad.IdFormulario);
-                Registro.Formulario = Entidad.Formulario;
+                var Registro = bd.Usuarios.Find(Entidad.IdUsuario);
+                Registro.NombreCompleto = Entidad.NombreCompleto;
+                Registro.Correo = Entidad.Correo;
+                Registro.UserName = Entidad.UserName;
+                Registro.Password = Entidad.Password;
+                Registro.Bloqueado = Entidad.Bloqueado;
+                Registro.IntentosFallidos = Entidad.IntentosFallidos;
+                Registro.IdRol = Entidad.IdRol;
                 Registro.IdUsuarioActualiza = Entidad.IdUsuarioActualiza;
                 Registro.FechaActualizacion = Entidad.FechaActualizacion;
                 return bd.SaveChanges() > 0;
             }
         }
-        public static bool Anular(Formularios Entidad)
+        public static bool Anular(Usuarios Entidad)
         {
             using (BDMPOO bd = new BDMPOO())
             {
-                var Registro = bd.Formularios.Find(Entidad.IdFormulario);
+                var Registro = bd.Usuarios.Find(Entidad.IdUsuario);
                 Registro.Activo = Entidad.Activo;
                 Registro.IdUsuarioActualiza = Entidad.IdUsuarioActualiza;
                 Registro.FechaActualizacion = Entidad.FechaActualizacion;
                 return bd.SaveChanges() > 0;
             }
         }
-        public static bool Existe(Formularios Entidad)
+        public static bool Existe(Usuarios Entidad)
         {
             using (BDMPOO bd = new BDMPOO())
             {
-                return bd.Formularios.Where(a => a.IdFormulario == Entidad.IdFormulario).Count() > 0;
+                return bd.Usuarios.Where(a => a.IdUsuario == Entidad.IdUsuario).Count() > 0;
             }
         }
-        public static Formularios Registro(Formularios Entidad)
+        public static Usuarios Registro(Usuarios Entidad)
         {
             using (BDMPOO bd = new BDMPOO())
             {
-                return bd.Formularios.Where(a => a.IdFormulario == Entidad.IdFormulario).SingleOrDefault();
+                return bd.Usuarios.Where(a => a.IdUsuario == Entidad.IdUsuario).SingleOrDefault();
             }
         }
-        public static List<Formularios> Lista(bool Activo = true)
+        public static List<Usuarios> Lista(bool Activo = true)
         {
             using (BDMPOO bd = new BDMPOO())
             {
-                return bd.Formularios.Where(a => a.Activo == Activo).ToList();
+                return bd.Usuarios.Where(a => a.Activo == Activo).ToList();
             }
         }
     }
